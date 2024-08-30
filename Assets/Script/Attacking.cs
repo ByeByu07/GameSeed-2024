@@ -12,9 +12,8 @@ public class Attacking : MonoBehaviour
     [SerializeField] protected int radius;
     [SerializeField] protected LayerMask layerToAttack;
     float attackSpeedCooldown;
-    Collider[] hitColliders = new Collider[1];
+    Collider hitCollider;
     protected Animator animator;
-    protected NavMeshAgent agent;
 
     private void Start()
     {
@@ -24,7 +23,20 @@ public class Attacking : MonoBehaviour
 
     void Update()
     {
-        hitColliders = Physics.OverlapSphere(transform.position, radius, layerToAttack);
+
+        if(hitCollider == null )
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, layerToAttack);
+
+            if (hitColliders.Length > 0)
+            {
+                hitCollider = hitColliders[0];
+            }
+            else
+            {
+                hitCollider = null;
+            }
+        }
 
         if (IsCanAttacking()) {
             Attack();
@@ -37,7 +49,7 @@ public class Attacking : MonoBehaviour
     public bool IsCanAttacking()
     {
         attackSpeedCooldown -= Time.deltaTime;
-        if (attackSpeedCooldown < 0 & hitColliders != null)
+        if (attackSpeedCooldown < 0 & hitCollider != null)
         {
             return true;
         }
@@ -58,7 +70,7 @@ public class Attacking : MonoBehaviour
 
     public Collider GetFirstColliderObject()
     {
-       return hitColliders[0];
+       return hitCollider;
     }
 
     public Health GetHealthColliderObject()

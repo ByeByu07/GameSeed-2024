@@ -5,21 +5,25 @@ using UnityEngine;
 
 public class EnemyAttacking : Attacking
 {
-    [HideIf("isSword")]
-    [SerializeField] private bool isArcher;
-    [HideIf("isArcher")]
-    [SerializeField] private bool isSword;
+    [HideIf("isShortRange")]
+    [SerializeField] private bool isLongRange;
+    [HideIf("isLongRange")]
+    [SerializeField] private bool isShortRange;
+    [SerializeField] private Enemy enemy;
 
     public override void Attack()
     {
-        if(isArcher)
+        enemy.enabled = false;
+
+        if(isLongRange)
         {
             // fire projectile
         }
 
-        if(isSword)
+        if(isShortRange)
         {
             // other logic maybe
+
         }
 
 
@@ -29,6 +33,7 @@ public class EnemyAttacking : Attacking
 
     public override void Move()
     {
+        enemy.enabled = true;
         // walk animation
     }
 }
