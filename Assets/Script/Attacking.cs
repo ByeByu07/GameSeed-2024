@@ -9,10 +9,10 @@ public class Attacking : MonoBehaviour
 {
     [SerializeField] protected int damage;
     [SerializeField] protected float attackSpeed;
-    [SerializeField] protected int radius;
+    [SerializeField] protected float radius;
     [SerializeField] protected LayerMask layerToAttack;
-    float attackSpeedCooldown;
-    Collider hitCollider;
+    protected float attackSpeedCooldown;
+    protected Collider hitCollider;
     protected Animator animator;
 
     private void Start()
@@ -46,7 +46,7 @@ public class Attacking : MonoBehaviour
         }
     }
 
-    public bool IsCanAttacking()
+    public virtual bool IsCanAttacking()
     {
         attackSpeedCooldown -= Time.deltaTime;
         if (attackSpeedCooldown < 0 & hitCollider != null)

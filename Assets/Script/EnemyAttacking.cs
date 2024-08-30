@@ -10,11 +10,10 @@ public class EnemyAttacking : Attacking
     [HideIf("isLongRange")]
     [SerializeField] private bool isShortRange;
     [SerializeField] private Enemy enemy;
+    [SerializeField] private float distanceToFollow;
 
     public override void Attack()
     {
-        enemy.enabled = false;
-
         if(isLongRange)
         {
             // fire projectile
@@ -33,7 +32,26 @@ public class EnemyAttacking : Attacking
 
     public override void Move()
     {
-        enemy.enabled = true;
+        enemy.SetDestionationToSeed();
         // walk animation
     }
+
+    public override bool IsCanAttacking()
+    {
+        if(hitCollider != null)
+        {
+            enemy.SetDestination(GetFirstColliderObject().gameObject.transform);
+            Debug.Log("collide");
+            attackSpeedCooldown -= Time.deltaTime;
+            if (attackSpeedCooldown < 0)
+            {
+                if (Vector3.Distance(transform.position, GetFirstColliderObject().gameObject.transform.position) < distanceToFollow)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
+

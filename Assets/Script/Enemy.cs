@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public EnemyHealth enemyHealth;
-    [SerializeField] private NavMeshAgent agent;
+    public NavMeshAgent agent;
     [SerializeField] private float radius;
     [SerializeField] private float moveSpeed;
     [SerializeField] private int damage;

@@ -6,7 +6,7 @@ public class BuildingHealth : Health
 {
     public override void HealthUnderZero()
     {
-        base.HealthUnderZero();
+        Destroy(gameObject);
     }
 
     public override void OnHit()

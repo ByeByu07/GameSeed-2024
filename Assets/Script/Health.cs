@@ -7,18 +7,17 @@ using UnityEngine;
 public class Health : MonoBehaviour, IDamageable
 {
     public int CurrentHealth { get; private set; }
-    [ShowInInspector]
-    public int MaxHealth { get; private set; }
+    [SerializeField] private int maxHealth;
     [SerializeField] private Transform deadEffect;
 
     private void Start()
     {
-        CurrentHealth = MaxHealth;
+        CurrentHealth = maxHealth;
     }
 
     public void GetDamage(int damageTaken)
     {
-        OnHit();
+        //OnHit();
         if(CurrentHealth < damageTaken)
         {
             HealthUnderZero();
@@ -29,12 +28,12 @@ public class Health : MonoBehaviour, IDamageable
 
     public void GetHeal(int healAmount)
     {
-        if (CurrentHealth + healAmount > MaxHealth) 
+        if (CurrentHealth + healAmount > maxHealth) 
         {
-            CurrentHealth = MaxHealth;
+            CurrentHealth = maxHealth;
         };
 
-        if(CurrentHealth < MaxHealth)
+        if(CurrentHealth < maxHealth)
         {
             CurrentHealth += healAmount;
         }
@@ -42,21 +41,21 @@ public class Health : MonoBehaviour, IDamageable
 
     public void ResetToMaxHealth()
     {
-        CurrentHealth = MaxHealth;
+        CurrentHealth = maxHealth;
     }
 
     public void SetMaxHealth(int healthAmount)
     {
-        MaxHealth = healthAmount;
+        maxHealth = healthAmount;
     }
 
     public virtual void HealthUnderZero()
     {
-        //throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public virtual void OnHit()
     {
-        //throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 }
