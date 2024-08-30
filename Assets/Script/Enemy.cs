@@ -11,21 +11,27 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int damage;
     [SerializeField] private int attackSpeed;
     [SerializeField] private Transform seedDestination;
-    [SerializeField] private LayerMask layerToAttack;
 
+    void Start()
+    {
+        if (agent.isOnNavMesh)
+        {
+            SetDestionationToSeed();
+        } 
+    }
     public virtual void Update()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void SetDestination(Vector3 destination)
     {
-        agent.destination = destination;
+        agent.SetDestination(destination);
     }
 
     public void SetDestination(Transform destination)
     {
-        agent.destination = destination.position;
+        agent.SetDestination(destination.position);
     }
 
     public void SetDestionationToSeed()

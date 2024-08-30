@@ -11,5 +11,5 @@ public class AttackBuildingSO : ScriptableObject
     public float attackSpeedEachPeople;
     public int healthEachPeople;
     public int numberOfPeople;
-    public int timeToSpawnAgain;
+    public float timeToSpawnAgain;
 }

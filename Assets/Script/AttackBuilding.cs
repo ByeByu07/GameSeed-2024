@@ -8,22 +8,21 @@ public class AttackBuilding : Building
     [Header("Default Configuration")]
     [SerializeField] Transform positionToSpawn;
 
-    List<AttackBuildingSO> attackBuildingSOList;
+    [SerializeField] private List<AttackBuildingSO> attackBuildingSOList;
     [SerializeField] private AttackBuildingSO attackBuildingSO;
 
     [Header("Spawn Configuration")]
     List<GameObject> peopleSpawned;
     [SerializeField] private Troop troopToSpawn;
-    public float timerToSpawnAgain;
+    private float timerToSpawnAgain;
 
     private void Awake()
     {
-        attackBuildingSOList = new List<AttackBuildingSO>();
+
     }
     private void Start()
     {
         attackBuildingSO = attackBuildingSOList[CurrentLevel()];
-        timerToSpawnAgain = attackBuildingSO.timeToSpawnAgain;
     }
 
     public override void OnUpgradeComplete()

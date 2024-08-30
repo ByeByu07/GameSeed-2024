@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,8 +7,15 @@ using UnityEngine;
 public class Health : MonoBehaviour, IDamageable
 {
     public int CurrentHealth { get; private set; }
+    [ShowInInspector]
     public int MaxHealth { get; private set; }
     [SerializeField] private Transform deadEffect;
+
+    private void Start()
+    {
+        CurrentHealth = MaxHealth;
+    }
+
     public void GetDamage(int damageTaken)
     {
         OnHit();
@@ -44,11 +52,11 @@ public class Health : MonoBehaviour, IDamageable
 
     public virtual void HealthUnderZero()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public virtual void OnHit()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 }
