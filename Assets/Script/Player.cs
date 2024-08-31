@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,8 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
 
-    private Building selectedBuilding;
+    [ShowInInspector]
+    private IInteractable selectedBuilding;
     [SerializeField] private GameInput gameInput;
   
     private Vector3 lastInteractDir;
@@ -18,7 +20,7 @@ public class Player : MonoBehaviour
 
     public event EventHandler<OnSelectedBuildingChangedEventHandler> OnSelectedBuildingChanged;
     public class OnSelectedBuildingChangedEventHandler : EventArgs {
-        public Building building;
+        public IInteractable building;
     };
 
     private void Awake()
@@ -61,7 +63,7 @@ public class Player : MonoBehaviour
         {
             foreach (Collider hitCollider in hitColliders)
             {
-                if (hitCollider.TryGetComponent(out Building building))
+                if (hitCollider.TryGetComponent(out IInteractable building))
                 {
                     if (building != selectedBuilding)
                     {
@@ -83,7 +85,7 @@ public class Player : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, sphereRadius);
     }
 
-    void SetSelectedBuilding(Building selectedBuilding)
+    void SetSelectedBuilding(IInteractable selectedBuilding)
     {
         this.selectedBuilding = selectedBuilding;
         OnSelectedBuildingChanged?.Invoke(this, new OnSelectedBuildingChangedEventHandler { building = selectedBuilding });

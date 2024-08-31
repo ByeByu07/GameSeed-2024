@@ -11,6 +11,8 @@ public class Attacking : MonoBehaviour
     [SerializeField] protected float attackSpeed;
     [SerializeField] protected float radius;
     [SerializeField] protected LayerMask layerToAttack;
+    [SerializeField] protected float distanceToAttack;
+    [SerializeField] protected float distanceToFollow;
     protected float attackSpeedCooldown;
     protected Collider hitCollider;
     protected Animator animator;
@@ -23,7 +25,6 @@ public class Attacking : MonoBehaviour
 
     void Update()
     {
-
         if(hitCollider == null )
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, layerToAttack);
@@ -35,12 +36,32 @@ public class Attacking : MonoBehaviour
             else
             {
                 hitCollider = null;
+
+                BackToPosition();
             }
+        }  else if (!GetFirstColliderObject().transform.gameObject.activeInHierarchy)
+        {
+            hitCollider = null;
+        } else
+        {
+           
+            Behavior();
         }
 
-        if (IsCanAttacking()) {
+    }
+
+    public virtual void BackToPosition()
+    {
+        //throw new NotImplementedException();
+    }
+
+    public virtual void Behavior()
+    {
+        if (IsCanAttacking())
+        {
             Attack();
-        } else
+        }
+        else
         {
             Move();
         }
@@ -48,12 +69,15 @@ public class Attacking : MonoBehaviour
 
     public virtual bool IsCanAttacking()
     {
-        attackSpeedCooldown -= Time.deltaTime;
-        if (attackSpeedCooldown < 0 & hitCollider != null)
+        if (Vector3.Distance(transform.position, GetFirstColliderObject().gameObject.transform.position) < distanceToAttack)
         {
-            return true;
+            attackSpeedCooldown -= Time.deltaTime;
+            if (attackSpeedCooldown < 0)
+            {
+                attackSpeedCooldown = attackSpeed;
+                return true;
+            }
         }
-
         return false;
     }
 

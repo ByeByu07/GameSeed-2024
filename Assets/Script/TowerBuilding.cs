@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TowerBuilding : Building
 {
-    List<TowerBuildingSO> towerBuildingSOList;
+    [SerializeField] private List<TowerBuildingSO> towerBuildingSOList;
     TowerBuildingSO towerBuildingSO;
 
     private void Awake()

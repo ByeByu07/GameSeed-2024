@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEditor.Build;
 using UnityEngine;
 
-public class Building : MonoBehaviour
+[RequireComponent(typeof(BuildingHealth))]
+public class Building : MonoBehaviour, IInteractable
 {
     public event Action OnSuccessUpgradeLevel;
     public event Action OnCancelUpgradeLevel;
@@ -12,11 +13,16 @@ public class Building : MonoBehaviour
     public event EventHandler<OnTapUpgradeEventHandler> OnTapUpgrade;
     public class OnTapUpgradeEventHandler : EventArgs { public int tapCount; }
 
-    public BuildingHealth buildingHealth;
+    [HideInInspector] public BuildingHealth buildingHealth;
     [SerializeField] private int currentLevel = 1;
     [SerializeField] private int maxLevel = 3;
     public List<CostEachLevelBuildingSO> costEachLevelBuildingSOList;
     int upgradeTapCount = 0;
+
+    private void Start()
+    {
+        buildingHealth = GetComponent<BuildingHealth>();
+    }
 
     public void Interact()
     {
@@ -28,7 +34,7 @@ public class Building : MonoBehaviour
             {
                 currentLevel++;
             }
-
+             
             //if upgrade success, set health to max again
 
             OnSuccessUpgradeLevel?.Invoke();
@@ -37,8 +43,8 @@ public class Building : MonoBehaviour
 
         } else
         {
-            OnTapUpgrade?.Invoke(this, new OnTapUpgradeEventHandler { tapCount = upgradeTapCount });
             upgradeTapCount++;
+            OnTapUpgrade?.Invoke(this, new OnTapUpgradeEventHandler { tapCount = upgradeTapCount / costEachLevelBuildingSOList[CurrentLevel()].countToBuild });
         }
     }
 

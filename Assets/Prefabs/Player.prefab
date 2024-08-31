@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6128048391584695790}
   - component: {fileID: 2567529562026525374}
+  - component: {fileID: 1445137778097110052}
   - component: {fileID: 791558771099630086}
   - component: {fileID: 299269729458976819}
-  - component: {fileID: 1445137778097110052}
+  - component: {fileID: 7612038192155806465}
   - component: {fileID: 2002624609073569657}
   - component: {fileID: 6273049198685287727}
   - component: {fileID: 2879032377077381148}
@@ -61,6 +62,25 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1445137778097110052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3695568344416337877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fab432d4303a48449a1c35a940ff612c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  attackSpeed: 0
+  radius: 0
+  layerToAttack:
+    serializedVersion: 2
+    m_Bits: 2048
+  distanceToUseSword: 0
 --- !u!114 &791558771099630086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fbdf79f3deb0d4a804af3c555560c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1445137778097110052
+--- !u!114 &7612038192155806465
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,17 +121,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3695568344416337877}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fab432d4303a48449a1c35a940ff612c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2008b706872822f4bbf140ab1c34246f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  attackSpeed: 0
-  radius: 0
-  layerToAttack:
-    serializedVersion: 2
-    m_Bits: 2048
-  distanceToUseSword: 0
-  isUseSword: 0
+  currentHealth: 0
+  maxHealth: 0
+  deadEffect: {fileID: 0}
 --- !u!95 &2002624609073569657
 Animator:
   serializedVersion: 5

@@ -10,7 +10,21 @@ public class EnemyAttacking : Attacking
     [HideIf("isLongRange")]
     [SerializeField] private bool isShortRange;
     [SerializeField] private Enemy enemy;
-    [SerializeField] private float distanceToFollow;
+
+    public override void Behavior()
+    {
+        if (IsCanAttacking())
+        {
+            Attack();
+        } else {
+            Move();
+        }
+    }
+
+    public override void BackToPosition()
+    {
+        enemy.SetDestionationToSeed();
+    }
 
     public override void Attack()
     {
@@ -32,23 +46,24 @@ public class EnemyAttacking : Attacking
 
     public override void Move()
     {
-        enemy.SetDestionationToSeed();
-        // walk animation
+        if (Vector3.Distance(transform.position, GetFirstColliderObject().gameObject.transform.position) < distanceToFollow)
+        {
+            enemy.SetDestination(GetFirstColliderObject().gameObject.transform);
+        } else
+        {
+            enemy.SetDestionationToSeed();
+        }
     }
 
     public override bool IsCanAttacking()
     {
-        if(hitCollider != null)
+        if (Vector3.Distance(transform.position, GetFirstColliderObject().gameObject.transform.position) < distanceToAttack)
         {
-            enemy.SetDestination(GetFirstColliderObject().gameObject.transform);
-            Debug.Log("collide");
             attackSpeedCooldown -= Time.deltaTime;
             if (attackSpeedCooldown < 0)
             {
-                if (Vector3.Distance(transform.position, GetFirstColliderObject().gameObject.transform.position) < distanceToFollow)
-                {
-                    return true;
-                }
+                attackSpeedCooldown = attackSpeed;
+                return true;
             }
         }
         return false;

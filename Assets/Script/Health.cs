@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
@@ -6,42 +7,44 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, IDamageable
 {
-    public int CurrentHealth { get; private set; }
+    [SerializeField] private int currentHealth;
     [SerializeField] private int maxHealth;
     [SerializeField] private Transform deadEffect;
+    protected Vector3 originalLocalScale;
 
     private void Start()
     {
-        CurrentHealth = maxHealth;
+        currentHealth = maxHealth;
+        originalLocalScale = transform.localScale;
     }
 
     public void GetDamage(int damageTaken)
     {
-        //OnHit();
-        if(CurrentHealth < damageTaken)
+        OnHit();
+        if(currentHealth < damageTaken)
         {
             HealthUnderZero();
         }
 
-        CurrentHealth -= damageTaken;
+        currentHealth -= damageTaken;
     }
 
     public void GetHeal(int healAmount)
     {
-        if (CurrentHealth + healAmount > maxHealth) 
+        if (currentHealth + healAmount > maxHealth) 
         {
-            CurrentHealth = maxHealth;
+            currentHealth = maxHealth;
         };
 
-        if(CurrentHealth < maxHealth)
+        if(currentHealth < maxHealth)
         {
-            CurrentHealth += healAmount;
+            currentHealth += healAmount;
         }
     }
 
     public void ResetToMaxHealth()
     {
-        CurrentHealth = maxHealth;
+        currentHealth = maxHealth;
     }
 
     public void SetMaxHealth(int healthAmount)
@@ -51,11 +54,12 @@ public class Health : MonoBehaviour, IDamageable
 
     public virtual void HealthUnderZero()
     {
-        throw new NotImplementedException();
+        gameObject.SetActive(false);
     }
 
     public virtual void OnHit()
     {
-        throw new NotImplementedException();
+        transform.DOComplete();
+        transform.DOShakeScale(0.3f, 0.5f, 5, 180, true).OnKill(() => { if (transform) { transform.localScale = originalLocalScale; } });
     }
 }

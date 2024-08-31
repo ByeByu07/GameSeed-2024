@@ -11,5 +11,11 @@ public class PlayerHealth : Health
         // spawn again player
 
         // animation
+        Destroy(gameObject);
+    }
+
+    public override void OnHit()
+    {
+        base.OnHit();
     }
 }

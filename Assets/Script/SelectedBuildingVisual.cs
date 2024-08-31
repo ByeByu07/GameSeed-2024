@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class SelectedBuildingVisual : MonoBehaviour
 {
-    [SerializeField] private Building building;
+    public Building building;
     public Transform[] selectedBuilding;
 
     private void Start()
     {
+        Hide();
         Player.Instance.OnSelectedBuildingChanged += Player_OnSelectedBuildingChanged;
     }
 
     private void Player_OnSelectedBuildingChanged(object sender, Player.OnSelectedBuildingChangedEventHandler e)
     {
-        if(building == e.building) {
+        if(building.GetComponent<IInteractable>() != e.building) {
             Show();
         } else
         {

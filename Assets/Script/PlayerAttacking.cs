@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttacking : Attacking
 {
     [SerializeField] private float distanceToUseSword;
-    
+
     public override void Attack()
     {
         //if (Vector3.Distance(transform.position, GetFirstColliderObject().transform.position) > distanceToUseSword)
@@ -20,12 +20,12 @@ public class PlayerAttacking : Attacking
         //    // slash with sword animation
         //    //animator.CrossFade();
         //}
-
         GetHealthColliderObject().GetDamage(damage);
     }
 
     public override void Move()
     {
         //
+
     }
 }

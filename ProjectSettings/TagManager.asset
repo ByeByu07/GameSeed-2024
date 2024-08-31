@@ -18,9 +18,9 @@ TagManager:
   - Seed
   - Enemy
   - Building
-  - 
-  - 
-  - 
+  - MoneyMakerBuilding
+  - TowerBuilding
+  - AttackBuilding
   - 
   - 
   - 
