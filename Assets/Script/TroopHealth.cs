@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TroopHealth : MonoBehaviour
+public class TroopHealth : Health
 {
-    // Start is called before the first frame update
-    void Start()
+    private Troop troop;
+    private void Start()
     {
-        
+        troop = GetComponent<Troop>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void HealthUnderZero()
     {
-        
+        gameObject.SetActive(false);
+        ResetToMaxHealth();
+    }
+
+    public override void OnHit()
+    {
+        base.OnHit();
     }
 }

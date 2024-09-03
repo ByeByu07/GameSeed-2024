@@ -5,7 +5,7 @@ using System;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(Animator))]
-public class Attacking : MonoBehaviour
+public class Attacking : MonoBehaviour, IColliderAttack
 {
     [SerializeField] protected int damage;
     [SerializeField] protected float attackSpeed;
@@ -39,10 +39,12 @@ public class Attacking : MonoBehaviour
 
                 BackToPosition();
             }
-        }  else if (!GetFirstColliderObject().transform.gameObject.activeInHierarchy)
+        }
+        else if (!GetFirstColliderObject().transform.gameObject.active)
         {
             hitCollider = null;
-        } else
+        }
+        else
         {
            
             Behavior();

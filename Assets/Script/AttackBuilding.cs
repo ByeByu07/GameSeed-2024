@@ -12,17 +12,24 @@ public class AttackBuilding : Building
     [SerializeField] private AttackBuildingSO attackBuildingSO;
 
     [Header("Spawn Configuration")]
-    List<GameObject> peopleSpawned;
+    List<Troop> peopleSpawned;
     [SerializeField] private Troop troopToSpawn;
     private float timerToSpawnAgain;
 
     private void Awake()
     {
-
+        peopleSpawned = new List<Troop>();
     }
     private void Start()
     {
         attackBuildingSO = attackBuildingSOList[CurrentLevel()];
+
+        for (int i = 0; i < attackBuildingSO.numberOfPeople; i++)
+        {
+            Troop troop = Instantiate(troopToSpawn, transform.position, Quaternion.identity);
+            troop.gameObject.SetActive(false);
+            peopleSpawned.Add(troop);
+        }
     }
 
     public override void OnUpgradeComplete()
@@ -34,12 +41,18 @@ public class AttackBuilding : Building
     private void Update()
     {
         timerToSpawnAgain -= Time.deltaTime;
-        if(timerToSpawnAgain < 0 && peopleSpawned.Count < attackBuildingSO.numberOfPeople)
+        if(timerToSpawnAgain < 0)
         {
-            //spawn
-
-            //add to list
-
+            foreach (Troop t in peopleSpawned)
+            {
+                if (!t.gameObject.activeInHierarchy)
+                {
+                    t.transform.position = positionToSpawn.position;
+                    t.gameObject.SetActive(true);
+                    Debug.Log("spawn");
+                    break;
+                }
+            }
 
             timerToSpawnAgain = attackBuildingSO.timeToSpawnAgain;
         }

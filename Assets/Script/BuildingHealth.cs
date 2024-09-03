@@ -11,11 +11,13 @@ public class BuildingHealth : Health
     public override void HealthUnderZero()
     {
         gameObject.SetActive(false);
+        //Destroy(gameObject);
+        OnBuildingHealthUnderZero?.Invoke();
     }
 
     public override void OnHit()
     {
-        transform.DOComplete();
-        transform.DOShakeScale(0.3f, 0.5f, 5, 180, true).OnKill(() => transform.localScale = originalLocalScale);
+        transform.DOShakeScale(0.3f,2f,2,10,true,ShakeRandomnessMode.Harmonic).OnKill(() => transform.localScale = originalLocalScale);
+
     }
 }

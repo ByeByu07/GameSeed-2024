@@ -8,5 +8,5 @@ public class TowerBuildingSO : ScriptableObject
     public int level;
     public float radius;
     public float attackSpeed;
-    public float damage;
+    public int damage;
 }

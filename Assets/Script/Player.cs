@@ -68,14 +68,16 @@ public class Player : MonoBehaviour
                     if (building != selectedBuilding)
                     {
                         SetSelectedBuilding(building);
+                        Debug.Log("exist");
+                        break;
                     }
-                    return; 
                 }
+                //else
+                //{
+                //    Debug.Log("null");
+                //    SetSelectedBuilding(null);
+                //}
             }
-        }
-        else
-        {
-            SetSelectedBuilding(null);
         }
     }
 

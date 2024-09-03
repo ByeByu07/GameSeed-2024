@@ -1,18 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Troop : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private NavMeshAgent agent;
+    [HideInInspector] public Vector3 locationToPatrol;
+
+    private void Start()
     {
-        
+        agent = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetDestination(Transform target)
     {
-        
+        agent.SetDestination(target.position);
+    }
+
+    public void SetDestination(Vector3 target)
+    {
+        agent.SetDestination(target);
+    }
+
+    public void SetPositionPatrol()
+    {
+        if(locationToPatrol != Vector3.zero)
+        {
+            SetDestination(locationToPatrol);
+            return;
+        }
+    }
+
+    public void SetPositionPatrol(Transform location)
+    {
+        locationToPatrol = location.position;
     }
 }

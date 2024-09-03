@@ -8,14 +8,14 @@ public class ContainerBase : MonoBehaviour,IInteractable
     [SerializeField] private Building building;
     [SerializeField] private Transform buildingPreview;
     [SerializeField] private Transform indicator;
-    [SerializeField] private bool isUnlocked = false;
+    [SerializeField] private bool isUnlocked = true;
 
     void Start()
     {
         building.OnTapUpgrade += Building_OnTapUpgrade;
         building.OnCancelUpgradeLevel += Building_OnCancelUpgradeLevel;
         building.OnSuccessUpgradeLevel += Building_OnSuccessUpgradeLevel;
-        building.buildingHealth.OnBuildingHealthUnderZero += BuildingHealth_OnBuildingHealthUnderZero;
+        //building.buildingHealth.OnBuildingHealthUnderZero += BuildingHealth_OnBuildingHealthUnderZero;
         
         Player.Instance.OnSelectedBuildingChanged += Player_OnSelectedBuildingChanged;
 
@@ -27,14 +27,14 @@ public class ContainerBase : MonoBehaviour,IInteractable
     {
         if (isUnlocked) return;
 
-        //if (this.GetComponent<IInteractable>() == e.building)
-        //{
-        //    buildingPreview.gameObject.SetActive(true);
-        //}
-        //else
-        //{
-        //    buildingPreview.gameObject.SetActive(false);
-        //}
+        if (this.GetComponent<IInteractable>() == e.building)
+        {
+            buildingPreview.gameObject.SetActive(true);
+        }
+        else
+        {
+            buildingPreview.gameObject.SetActive(false);
+        }
     }
 
 

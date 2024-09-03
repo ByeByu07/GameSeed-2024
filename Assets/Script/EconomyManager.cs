@@ -25,9 +25,12 @@ public class EconomyManager : MonoBehaviour
     {
         var moneyMoney = BuildingManager.Instance.GetBuildingList().OfType<MoneyMakerBuilding>();
 
-        foreach (MoneyMakerBuilding moneyMaker in moneyMoney)
+        if(moneyMoney != null )
         {
-            Money += moneyMaker.MoneyMakerBuildingSO.earn;
+            foreach (MoneyMakerBuilding moneyMaker in moneyMoney)
+            {
+                Money += moneyMaker.MoneyMakerBuildingSO.earn;
+            }
         }
     }
 }

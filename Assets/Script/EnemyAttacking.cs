@@ -10,7 +10,7 @@ public class EnemyAttacking : Attacking
     [HideIf("isLongRange")]
     [SerializeField] private bool isShortRange;
     [SerializeField] private Enemy enemy;
-
+    [SerializeField] LayerMask playerLayer;
     public override void Behavior()
     {
         if (IsCanAttacking())
@@ -51,7 +51,7 @@ public class EnemyAttacking : Attacking
             enemy.SetDestination(GetFirstColliderObject().gameObject.transform);
         } else
         {
-            enemy.SetDestionationToSeed();
+            hitCollider = null;
         }
     }
 
