@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int currentHealth;
-    [SerializeField] private int maxHealth;
-    [SerializeField] private Transform deadEffect;
+    [SerializeField] protected int currentHealth;
+    [SerializeField] protected int maxHealth;
+    [SerializeField] protected Transform deadEffect;
     protected Vector3 originalLocalScale;
 
     private void Start()

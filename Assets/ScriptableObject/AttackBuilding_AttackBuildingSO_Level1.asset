@@ -17,5 +17,5 @@ MonoBehaviour:
   attackEachPeople: 5
   attackSpeedEachPeople: 8
   healthEachPeople: 50
-  numberOfPeople: 4
+  numberOfPeople: 5
   timeToSpawnAgain: 3

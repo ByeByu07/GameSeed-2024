@@ -20,4 +20,12 @@ public class TowerBullet : MonoBehaviour
                 Destroy(gameObject,2f);
             });
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Ground")
+        {
+            Instantiate(GameAssets.Instance?.TowerBulletLandingPage,transform.position, Quaternion.identity);
+        }
+    }
 }

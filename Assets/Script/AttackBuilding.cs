@@ -23,13 +23,13 @@ public class AttackBuilding : Building
     private void Start()
     {
         attackBuildingSO = attackBuildingSOList[CurrentLevel()];
-
-        for (int i = 0; i < attackBuildingSO.numberOfPeople; i++)
-        {
-            Troop troop = Instantiate(troopToSpawn, transform.position, Quaternion.identity);
-            troop.gameObject.SetActive(false);
-            peopleSpawned.Add(troop);
-        }
+        timerToSpawnAgain = attackBuildingSO.timeToSpawnAgain;
+        //for (int i = 0; i < attackBuildingSO.numberOfPeople; i++)
+        //{
+        //    Troop troop = Instantiate(troopToSpawn, transform.position, Quaternion.identity);
+        //    troop.gameObject.SetActive(false);
+        //    peopleSpawned.Add(troop);
+        //}
     }
 
     public override void OnUpgradeComplete()
@@ -43,18 +43,30 @@ public class AttackBuilding : Building
         timerToSpawnAgain -= Time.deltaTime;
         if(timerToSpawnAgain < 0)
         {
-            foreach (Troop t in peopleSpawned)
+            //foreach (Troop t in peopleSpawned)
+            //{
+            //    if (!t.gameObject.activeInHierarchy)
+            //    {
+            //t.gameObject.SetActive(true);
+            //t.transform.position = positionToSpawn.position;
+            //Debug.Log("spawn" + t.transform.position);
+            //break;
+            //    }
+            //}
+            if (peopleSpawned.Count < attackBuildingSO.numberOfPeople)
             {
-                if (!t.gameObject.activeInHierarchy)
-                {
-                    t.transform.position = positionToSpawn.position;
-                    t.gameObject.SetActive(true);
-                    Debug.Log("spawn");
-                    break;
-                }
+                Troop troop = Instantiate(troopToSpawn, transform.position, Quaternion.identity);
+                troop.transform.position = positionToSpawn.position;
+                peopleSpawned.Add(troop);
+
             }
 
             timerToSpawnAgain = attackBuildingSO.timeToSpawnAgain;
+        } else
+        {
+           
         }
+
+
     }
 }

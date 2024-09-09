@@ -17,6 +17,7 @@ public class Building : MonoBehaviour, IInteractable
     [SerializeField] private int currentLevel = 1;
     [SerializeField] private int maxLevel = 3;
     public List<CostEachLevelBuildingSO> costEachLevelBuildingSOList;
+    [SerializeField] private List<Transform> GameObjectVisualBasedLevel;
     int upgradeTapCount = 0;
 
     private void Start()
@@ -26,19 +27,22 @@ public class Building : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        
-        if (costEachLevelBuildingSOList[currentLevel - 1].countToBuild == upgradeTapCount)
+        Debug.Log("tap count" + upgradeTapCount);
+        Debug.Log("level" + currentLevel);
+        Debug.Log(costEachLevelBuildingSOList[CurrentLevel()].countToBuild);
+        if (upgradeTapCount == costEachLevelBuildingSOList[CurrentLevel()].countToBuild )
         {
             
             if(!IsLevelMax())
             {
                 currentLevel++;
+                OnSuccessUpgradeLevel?.Invoke();
+                OnUpgradeComplete();
+                UpdateVisual();
             }
              
             //if upgrade success, set health to max again
 
-            OnSuccessUpgradeLevel?.Invoke();
-            OnUpgradeComplete();
             upgradeTapCount = 0;
 
         } else
@@ -53,9 +57,19 @@ public class Building : MonoBehaviour, IInteractable
         OnCancelUpgradeLevel?.Invoke();
     }
 
-    public virtual void OnUpgradeComplete() 
+    public virtual void OnUpgradeComplete()
     {
         throw new NotImplementedException();
+    }
+    public void UpdateVisual()
+    {
+        foreach(Transform t in GameObjectVisualBasedLevel)
+        {
+            t.gameObject.SetActive(false);
+        }
+
+        Transform visual = GameObjectVisualBasedLevel[CurrentLevel()];
+        visual.gameObject.SetActive(true);
     }
 
     public bool IsLevelMax() {  return currentLevel == maxLevel; }
