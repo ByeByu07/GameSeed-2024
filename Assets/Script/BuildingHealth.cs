@@ -11,7 +11,6 @@ public class BuildingHealth : Health
     public override void HealthUnderZero()
     {
         gameObject.SetActive(false);
-        //Destroy(gameObject);
         OnBuildingHealthUnderZero?.Invoke();
     }
 

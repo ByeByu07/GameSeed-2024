@@ -72,4 +72,9 @@ public class GameHandler : MonoBehaviour
                 break;
         }
     }
+
+    public float GetCurrentRestTimerNormalized()
+    {
+        return gameTimer / gameTimerMax;
+    }
 }

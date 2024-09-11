@@ -11,6 +11,7 @@ public class GameAssets : MonoBehaviour
     public Transform TowerBulletLandingPage;
     [Header("Audio Assets")]
     public List<AudioClip> playerSteps;
+    public Transform player;
 
     private void Awake()
     {

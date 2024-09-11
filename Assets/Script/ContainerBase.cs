@@ -5,102 +5,67 @@ using UnityEngine;
 
 public class ContainerBase : MonoBehaviour,IInteractable
 {
-    [SerializeField] private Building building;
-    [SerializeField] private Transform buildingPreview;
-    [SerializeField] private Transform indicator;
-    [SerializeField] private bool isUnlocked = true;
-
-    void Start()
+    [SerializeField] private Transform building;
+    [SerializeField] private List<Transform> preview;
+    [SerializeField] private CostEachLevelBuildingSO level01;
+    [SerializeField] private bool isUnlocked = false;
+    private void Start()
     {
-        building.OnTapUpgrade += Building_OnTapUpgrade;
-        building.OnCancelUpgradeLevel += Building_OnCancelUpgradeLevel;
-        building.OnSuccessUpgradeLevel += Building_OnSuccessUpgradeLevel;
-        //building.buildingHealth.OnBuildingHealthUnderZero += BuildingHealth_OnBuildingHealthUnderZero;
-        
-        Player.Instance.OnSelectedBuildingChanged += Player_OnSelectedBuildingChanged;
-
-        buildingPreview.gameObject.SetActive(false);
-        building.gameObject.SetActive(false);
+        building.GetComponent<Building>().buildingHealth.OnBuildingHealthUnderZero += BuildingHealth_OnBuildingHealthUnderZero;
+        Hide(building);
     }
-
-    private void Player_OnSelectedBuildingChanged(object sender, Player.OnSelectedBuildingChangedEventHandler e)
-    {
-        if (isUnlocked) return;
-
-        if (this.GetComponent<IInteractable>() == e.building)
-        {
-            buildingPreview.gameObject.SetActive(true);
-        }
-        else
-        {
-            buildingPreview.gameObject.SetActive(false);
-        }
-    }
-
 
     private void BuildingHealth_OnBuildingHealthUnderZero()
     {
-        building.gameObject.SetActive(false);
-    }
-
-    private void Building_OnSuccessUpgradeLevel()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private void Building_OnCancelUpgradeLevel()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private void Building_OnTapUpgrade(object sender, Building.OnTapUpgradeEventHandler e)
-    {
-        if (e.tapCount != 0)
-        {
-            indicator.gameObject.SetActive(false);
-
-            // normalize tapCOunt to 1
-            //float a = e.tapCount / 1;
-            // get position building y0 ( first position )
-            //Vector3 b = building.transform.position;
-            // move slowly each tapcount
-            // move with dotween up & shake
-            //building.transform.DOMove(new Vector3(b.x, b.y + a, b.z),0.3f);
-        }
+        ResetWhenBuildingDestroyed();
+        isUnlocked = false;
     }
 
     public void Interact()
     {
-        if(!isUnlocked)
-        {
-            isUnlocked = true;
-            indicator.gameObject.SetActive(false);
-            buildingPreview.gameObject.SetActive(false);
-            building.gameObject.SetActive(true);
-        }
+        if (isUnlocked) return;
 
-        building.transform.DOMoveY(1f, 2f);
-        building.transform.DOShakeScale(.5f, .5f, 10, 180,true);
+        if (EconomyManager.Instance.CanBuyBuilding(level01.cost))
+        {
+            Show(building.transform);
+            Hide(preview);
+        }
+    }
+
+    void Show(List<Transform> t)
+    {
+        foreach (Transform item in t)
+        {
+            item.gameObject.SetActive(true);
+        }
+    }
+
+    void Hide(List<Transform> t)
+    {
+        foreach (Transform item in t)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
+
+    void Show(Transform t)
+    {
+        t.gameObject.SetActive(true);
+    }
+
+    void Hide(Transform t)
+    {
+        t.gameObject.SetActive(false);
     }
 
     public void InteractAlternate()
     {
-        throw new System.NotImplementedException();
+        //
     }
 
-    //void Show()
-    //{
-    //    foreach (Transform item in selectedBuilding)
-    //    {
-    //        item.gameObject.SetActive(true);
-    //    }
-    //}
-
-    //void Hide()
-    //{
-    //    foreach (Transform item in selectedBuilding)
-    //    {
-    //        item.gameObject.SetActive(false);
-    //    }
-    //}
+    public void ResetWhenBuildingDestroyed()
+    {
+        Hide(building);
+        Show(preview);
+    }
 }

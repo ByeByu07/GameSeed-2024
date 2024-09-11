@@ -57,6 +57,8 @@ public class EnemyAttacking : Attacking
 
     public override bool IsCanAttacking()
     {
+        //if(!GetFirstColliderObject().GetComponent<Building>().IsActive()) return false;
+
         if (Vector3.Distance(transform.position, GetFirstColliderObject().gameObject.transform.position) < distanceToAttack)
         {
             attackSpeedCooldown -= Time.deltaTime;

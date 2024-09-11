@@ -6,6 +6,9 @@ public class PlayerAttacking : Attacking
 {
     [SerializeField] private float distanceToUseSword;
 
+    private readonly int ATTACK_SWORD = Animator.StringToHash("PlayerWithSwordAttack");
+    private readonly int ATTACK_ARCHER = Animator.StringToHash("PlayerWithArcherAttack");
+
     public override void Attack()
     {
         //if (Vector3.Distance(transform.position, GetFirstColliderObject().transform.position) > distanceToUseSword)
@@ -20,6 +23,8 @@ public class PlayerAttacking : Attacking
         //    // slash with sword animation
         //    //animator.CrossFade();
         //}
+
+        animator.SetTrigger("Sword");
         GetHealthColliderObject().GetDamage(damage);
     }
 

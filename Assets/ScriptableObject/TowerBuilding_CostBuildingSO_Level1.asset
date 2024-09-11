@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TowerBuilding_CostBuildingSO_Level1
   m_EditorClassIdentifier: 
   level: 0
-  cost: 0
+  cost: 10
   countToBuild: 3

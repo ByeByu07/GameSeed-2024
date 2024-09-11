@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, IDamageable
 {
+    public event EventHandler<OnHitEventHandler> OnHitEH;
+    public class OnHitEventHandler { public float restHealth; }
+
     [SerializeField] protected int currentHealth;
     [SerializeField] protected int maxHealth;
     [SerializeField] protected Transform deadEffect;
@@ -59,6 +62,7 @@ public class Health : MonoBehaviour, IDamageable
 
     public virtual void OnHit()
     {
+        OnHitEH?.Invoke(this, new OnHitEventHandler { restHealth = (float) currentHealth / maxHealth });
         transform.DOComplete();
         transform.DOShakeScale(0.3f, 0.5f, 5, 180, true).OnKill(() => { if (transform) { transform.localScale = originalLocalScale; } });
     }

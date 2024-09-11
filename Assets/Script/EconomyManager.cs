@@ -9,7 +9,8 @@ public class EconomyManager : MonoBehaviour
     public static EconomyManager Instance { get; private set; }
 
     [ShowInInspector]
-    public int Money { get; private set; }
+    public int money;
+    [SerializeField] private int firstMoney = 20;
 
     private void Awake()
     {
@@ -19,6 +20,14 @@ public class EconomyManager : MonoBehaviour
     private void Start()
     {
         GameHandler.Instance.OnDayChanged += GameHandler_OnDayChanged;
+        money = firstMoney;
+        Coins.OnCollideWithPlayer += Coins_OnCollideWithPlayer;
+    }
+
+    private void Coins_OnCollideWithPlayer()
+    {
+        money += 1;
+        // visual effect ui scale animation
     }
 
     private void GameHandler_OnDayChanged(object sender, GameHandler.OnDayChangedEventHandler e)
@@ -29,8 +38,21 @@ public class EconomyManager : MonoBehaviour
         {
             foreach (MoneyMakerBuilding moneyMaker in moneyMoney)
             {
-                Money += moneyMaker.MoneyMakerBuildingSO.earn;
+                //money += moneyMaker.MoneyMakerBuildingSO.earn;
+                moneyMaker.InstantiateCoins(moneyMaker.MoneyMakerBuildingSO.earn);
             }
         }
+    }
+
+    public bool CanBuyBuilding(int cost)
+    {
+        if(money - cost >= 0)
+        {
+            money -= cost;
+            Debug.Log(money);
+            return true;
+        }
+
+        return false;
     }
 }

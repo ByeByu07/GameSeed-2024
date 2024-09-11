@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,35 +19,35 @@ public class Building : MonoBehaviour, IInteractable
     [SerializeField] private int maxLevel = 3;
     public List<CostEachLevelBuildingSO> costEachLevelBuildingSOList;
     [SerializeField] private List<Transform> GameObjectVisualBasedLevel;
+    protected Vector3 originalLocalScale = Vector3.one;
     int upgradeTapCount = 0;
 
-    private void Start()
+    private void Awake()
     {
         buildingHealth = GetComponent<BuildingHealth>();
     }
-
     public void Interact()
     {
-        Debug.Log("tap count" + upgradeTapCount);
-        Debug.Log("level" + currentLevel);
-        Debug.Log(costEachLevelBuildingSOList[CurrentLevel()].countToBuild);
         if (upgradeTapCount == costEachLevelBuildingSOList[CurrentLevel()].countToBuild )
         {
-            
-            if(!IsLevelMax())
+            if(EconomyManager.Instance.CanBuyBuilding(costEachLevelBuildingSOList[CurrentLevel()].cost))
             {
-                currentLevel++;
-                OnSuccessUpgradeLevel?.Invoke();
-                OnUpgradeComplete();
-                UpdateVisual();
+                if(!IsLevelMax())
+                {
+                    currentLevel++;
+                    OnSuccessUpgradeLevel?.Invoke();
+                    OnUpgradeComplete();
+                    UpdateVisual();
+                }
             }
-             
             //if upgrade success, set health to max again
 
             upgradeTapCount = 0;
 
         } else
         {
+            transform.DOComplete();
+            transform.DOShakeScale(0.3f, 0.5f, 5, 180, true).OnKill(() => { if (transform) { transform.localScale = originalLocalScale; } });
             upgradeTapCount++;
             OnTapUpgrade?.Invoke(this, new OnTapUpgradeEventHandler { tapCount = upgradeTapCount / costEachLevelBuildingSOList[CurrentLevel()].countToBuild });
         }
@@ -73,5 +74,6 @@ public class Building : MonoBehaviour, IInteractable
     }
 
     public bool IsLevelMax() {  return currentLevel == maxLevel; }
-    public int CurrentLevel() { return currentLevel - 1; }
+    public bool IsActive() { return currentLevel != 0; }
+    public int CurrentLevel() { return currentLevel - 1 ; }
 }

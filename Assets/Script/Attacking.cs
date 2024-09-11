@@ -96,7 +96,7 @@ public class Attacking : MonoBehaviour, IColliderAttack
 
     public Collider GetFirstColliderObject()
     {
-       return hitCollider;
+        return hitCollider;
     }
 
     public Health GetHealthColliderObject()
