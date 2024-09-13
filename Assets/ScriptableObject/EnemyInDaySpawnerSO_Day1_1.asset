@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea39d54ca1a62e04e93b4b1825b42e78, type: 3}
   m_Name: EnemyInDaySpawnerSO_Day1_1
   m_EditorClassIdentifier: 
-  amountToSpawn: 0
-  enemy: {fileID: 0}
+  amountToSpawn: 20
+  enemy: {fileID: 4908972498100692013, guid: 663a38b1e617fd84790b75d17fe8fb71, type: 3}
+  spawnLocation: 0

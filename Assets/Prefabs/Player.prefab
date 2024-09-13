@@ -116,8 +116,8 @@ Transform:
   - {fileID: 8311911071243867996}
   - {fileID: 4099050671095991412}
   - {fileID: 8250926536949832514}
-  - {fileID: 4645633117295956942}
   - {fileID: 8219871198897992332}
+  - {fileID: 4645633117295956942}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &2567529562026525374
@@ -178,9 +178,6 @@ MonoBehaviour:
   gameInput: {fileID: 0}
   playerSelectTroopsEffect: {fileID: 8770372757509770255}
   interactDistance: 0.2
-  buildingLayer:
-    serializedVersion: 2
-    m_Bits: 4096
   troopLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -536,10 +533,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6128048391584695790}
     m_Modifications:
+    - target: {fileID: 6920452464197223362, guid: 4401e5a4280b9fe4ab08d5c3a5a1e1f1,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 6920452464197223362, guid: 4401e5a4280b9fe4ab08d5c3a5a1e1f1,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920452464197223362, guid: 4401e5a4280b9fe4ab08d5c3a5a1e1f1,
+        type: 3}
+      propertyPath: m_MeshDistribution
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6921584616460046256, guid: 4401e5a4280b9fe4ab08d5c3a5a1e1f1,
         type: 3}
       propertyPath: looping
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6921584616460046256, guid: 4401e5a4280b9fe4ab08d5c3a5a1e1f1,
         type: 3}

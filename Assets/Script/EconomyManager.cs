@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System;
 
 public class EconomyManager : MonoBehaviour
 {
     public static EconomyManager Instance { get; private set; }
+    public event Action OnBuyBuilding;
 
     [ShowInInspector]
     public int money;
@@ -15,12 +17,12 @@ public class EconomyManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        money = firstMoney;
     }
 
     private void Start()
     {
         GameHandler.Instance.OnDayChanged += GameHandler_OnDayChanged;
-        money = firstMoney;
         Coins.OnCollideWithPlayer += Coins_OnCollideWithPlayer;
     }
 
@@ -32,14 +34,20 @@ public class EconomyManager : MonoBehaviour
 
     private void GameHandler_OnDayChanged(object sender, GameHandler.OnDayChangedEventHandler e)
     {
-        var moneyMoney = BuildingManager.Instance.GetBuildingList().OfType<MoneyMakerBuilding>();
+        var moneyMoney = BuildingManager.Instance.GetBuildingActiveList().OfType<MoneyMakerBuilding>();
 
-        if(moneyMoney != null )
+        Debug.Log(moneyMoney);
+
+        if (moneyMoney.Any())
         {
             foreach (MoneyMakerBuilding moneyMaker in moneyMoney)
             {
-                //money += moneyMaker.MoneyMakerBuildingSO.earn;
-                moneyMaker.InstantiateCoins(moneyMaker.MoneyMakerBuildingSO.earn);
+                Debug.Log("this");
+                if(moneyMaker.gameObject.activeInHierarchy)
+                {
+                    Debug.Log("thus");
+                    moneyMaker.InstantiateCoins(moneyMaker.MoneyMakerBuildingSO.earn);
+                }
             }
         }
     }
@@ -49,6 +57,7 @@ public class EconomyManager : MonoBehaviour
         if(money - cost >= 0)
         {
             money -= cost;
+            OnBuyBuilding?.Invoke();
             Debug.Log(money);
             return true;
         }

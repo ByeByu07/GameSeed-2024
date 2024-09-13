@@ -45,6 +45,13 @@ public class TowerBuilding : Building, IColliderAttack
         }
     }
 
+    public override void ResetLevel()
+    {
+        base.ResetLevel();
+
+        towerBuildingSO = towerBuildingSOList[CurrentLevel()];
+    }
+
     public Collider GetFirstColliderObject()
     {
         return hitCollider;

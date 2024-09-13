@@ -6,4 +6,6 @@ public class EnemyInDaySpawnerSO : ScriptableObject
 {
     public int amountToSpawn;
     public Enemy enemy;
+    public int spawnLocation;
 }
+

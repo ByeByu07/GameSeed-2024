@@ -9,6 +9,8 @@ public class MoneyMakerBuilding : Building
 
     public Coins coins;
 
+    [SerializeField] private Transform targetToSpawnCoins;
+
     private void Awake()
     {
         MoneyMakerBuildingSO = moneyMakerBuildingSOList[CurrentLevel()]; 
@@ -25,8 +27,7 @@ public class MoneyMakerBuilding : Building
         for (int i = 0; i< earn; i++)
         {
             float randomPos = Random.Range(-1, 1);
-            float height = 3;
-            Vector3 newPos = transform.position + new Vector3(randomPos, height, randomPos);
+            Vector3 newPos = targetToSpawnCoins.position + new Vector3(randomPos, 0, randomPos);
             Instantiate(coins, newPos, Quaternion.identity);
         }
     }

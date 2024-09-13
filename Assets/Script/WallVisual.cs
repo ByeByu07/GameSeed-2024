@@ -11,11 +11,19 @@ public class WallVisual : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (((1 << collision.gameObject.layer) & targetLayer) != 0)
+        if (((1 << other.gameObject.layer) & targetLayer) != 0)
         {
-            animator.SetTrigger("OpenClose");
+            animator.SetTrigger("Open");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (((1 << other.gameObject.layer) & targetLayer) != 0)
+        {
+            animator.SetTrigger("Close");
         }
     }
 }

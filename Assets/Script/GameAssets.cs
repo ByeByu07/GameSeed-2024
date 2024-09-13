@@ -12,6 +12,7 @@ public class GameAssets : MonoBehaviour
     [Header("Audio Assets")]
     public List<AudioClip> playerSteps;
     public Transform player;
+    public Transform seed;
 
     private void Awake()
     {

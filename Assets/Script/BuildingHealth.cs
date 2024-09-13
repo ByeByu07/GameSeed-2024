@@ -3,15 +3,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static GameInput;
 
 public class BuildingHealth : Health
 {
     public event Action OnBuildingHealthUnderZero;
+    [SerializeField] private ContainerBase cb;
+    Building building;
+
+    protected new void Start()
+    {
+        base.Start();
+        building = GetComponent<Building>();
+    }
     public override void HealthUnderZero()
     {
-        gameObject.SetActive(false);
+        cb.gameObject.SetActive(true);
+        ResetToMaxHealth();
+        building.ResetLevel();
         OnBuildingHealthUnderZero?.Invoke();
+        gameObject.SetActive(false);
     }
 
     public override void OnHit()

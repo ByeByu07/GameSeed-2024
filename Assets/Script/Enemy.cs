@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private int damage;
     [SerializeField] private int attackSpeed;
-    [SerializeField] private Transform seedDestination;
 
     void Start()
     {
@@ -36,6 +35,6 @@ public class Enemy : MonoBehaviour
 
     public void SetDestionationToSeed()
     {
-        SetDestination(seedDestination);
+        SetDestination(GameAssets.Instance.seed);
     }
 }

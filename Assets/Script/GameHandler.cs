@@ -8,6 +8,7 @@ public class GameHandler : MonoBehaviour
 {
     public enum GameState 
     {
+        WaitingPlayer,
         WaitingCountDownTimer,
         DefensePeriod,
         Winner
@@ -19,6 +20,7 @@ public class GameHandler : MonoBehaviour
     [SerializeField] private float gameTimer;
     [SerializeField] private float gameTimerMax = 300f;
     [SerializeField] private float dayAmount = 5f;
+    private int dayCurrent = 0;
     private float gameTimerDivideDayAmount;
     private float gameTimerDivideDayAmountCurrent;
     [SerializeField] private float countDownToPlay = 20f;
@@ -28,7 +30,7 @@ public class GameHandler : MonoBehaviour
     public event EventHandler<OnDayChangedEventHandler> OnDayChanged;
     public class OnDayChangedEventHandler
     {
-        public float day;
+        public int day;
     }
 
     private void Awake()
@@ -46,6 +48,8 @@ public class GameHandler : MonoBehaviour
     {
         switch (State)
         {
+            case GameState.WaitingPlayer:
+                break;
             case GameState.WaitingCountDownTimer:
                 countDownToPlay -= Time.deltaTime;
                 if(countDownToPlay < 0)
@@ -58,7 +62,8 @@ public class GameHandler : MonoBehaviour
                 if(gameTimer > gameTimerDivideDayAmountCurrent)
                 {
                     gameTimerDivideDayAmountCurrent += gameTimerDivideDayAmount;
-                    OnDayChanged?.Invoke(this, new OnDayChangedEventHandler { day = gameTimer / gameTimerDivideDayAmount  });
+                    OnDayChanged?.Invoke(this, new OnDayChangedEventHandler { day = dayCurrent  });
+                    dayCurrent++;
                 }
 
                 gameTimer += Time.deltaTime;
@@ -76,5 +81,14 @@ public class GameHandler : MonoBehaviour
     public float GetCurrentRestTimerNormalized()
     {
         return gameTimer / gameTimerMax;
+    }
+
+    public void ChangeState(GameState gameState) {
+        State = gameState;
+    }
+
+    public void ChangeSeed(Transform t)
+    {
+        GameAssets.Instance.seed = t;
     }
 }

@@ -488,6 +488,7 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 100
   deadEffect: {fileID: 0}
+  cb: {fileID: 0}
 --- !u!114 &8950631597136309468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,7 +518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 384
 --- !u!54 &9046139179176389558
 Rigidbody:
   m_ObjectHideFlags: 0

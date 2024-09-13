@@ -26,6 +26,13 @@ public class Building : MonoBehaviour, IInteractable
     {
         buildingHealth = GetComponent<BuildingHealth>();
     }
+
+    public virtual void ResetLevel()
+    {
+        currentLevel = 1;
+        UpdateVisual();
+    }
+
     public void Interact()
     {
         if (upgradeTapCount == costEachLevelBuildingSOList[CurrentLevel()].countToBuild )

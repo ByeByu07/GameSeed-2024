@@ -15,7 +15,7 @@ public class Health : MonoBehaviour, IDamageable
     [SerializeField] protected Transform deadEffect;
     protected Vector3 originalLocalScale;
 
-    private void Start()
+    protected void Start()
     {
         currentHealth = maxHealth;
         originalLocalScale = transform.localScale;

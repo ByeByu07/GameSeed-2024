@@ -8,28 +8,26 @@ public class Coins : MonoBehaviour, IDisposable
 {
     public static event Action OnCollideWithPlayer;
 
-    [SerializeField] private float moveSpeed = 0.5f;
+    [SerializeField] private Vector2 moveSpeed = new Vector2(5,10);
     private bool isClampToPlayer = false;
-    //Rigidbody rb;
+    private float randomSpeed;
     void Start()
     {
         Utility.CountDownWithCallback(this, 2f, ClampToPlayer);
-        //rb = GetComponent<Rigidbody>();
     }
-
     private void ClampToPlayer()
     {
-        //isClampToPlayer = true;
-        transform.DOMove(GameAssets.Instance.player.position, 2f).SetEase(Ease.InOutQuad);
+        isClampToPlayer = true;
+        randomSpeed = UnityEngine.Random.Range(moveSpeed.x, moveSpeed.y);
     }
 
-    //private void Update()
-    //{
-    //    if (isClampToPlayer)
-    //    {
-    //        transform.position = Vector3.MoveTowards(transform.position, GameAssets.Instance.player.position, moveSpeed * Time.deltaTime);
-    //    }
-    //}
+    private void Update()
+    {
+       if (isClampToPlayer)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, GameAssets.Instance.player.position + new Vector3(0,1,0), randomSpeed * Time.deltaTime);
+        }
+    }
 
     public void Dispose()
     {
@@ -38,7 +36,10 @@ public class Coins : MonoBehaviour, IDisposable
 
     private void OnTriggerEnter(Collider other)
     {
-        OnCollideWithPlayer?.Invoke();
-        Destroy(gameObject);
+        if(other.gameObject.tag == "Player")
+        {
+            OnCollideWithPlayer?.Invoke();
+            Destroy(gameObject);
+        }
     }
 }

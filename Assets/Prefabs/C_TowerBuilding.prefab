@@ -75,7 +75,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b2ed4575d27ef5545919ac4ff519bd35, type: 2}
   - {fileID: 11400000, guid: 7b9136b4d95cb0c468162b5841a0ecc5, type: 2}
   - {fileID: 11400000, guid: d5e63d1e4f578874e974c53e6a671f9f, type: 2}
-  - {fileID: 11400000, guid: b2ed4575d27ef5545919ac4ff519bd35, type: 2}
   GameObjectVisualBasedLevel:
   - {fileID: 2945049331247515429}
   - {fileID: 3844648370847105173}
@@ -271,7 +270,7 @@ GameObject:
   - component: {fileID: 9083691329627269096}
   m_Layer: 0
   m_Name: C_TowerBuilding
-  m_TagString: Untagged
+  m_TagString: ContainerBase
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

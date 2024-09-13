@@ -2,6 +2,7 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -16,9 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem playerSelectTroopsEffect;
 
     private bool isTryGetTroops = false;
-    private Vector3 lastInteractDir;
     public float interactDistance = 0.2f;
-    public LayerMask buildingLayer;
     public LayerMask troopLayer;
     public float sphereRadius = 2f;
     public float castDistance = 1f;
@@ -46,15 +45,18 @@ public class Player : MonoBehaviour
         EmitParticleSelectedTroops(playerSelectTroopsEffect);
         isTryGetTroops = true;
 
-        if (troopList != null)
+        if (troopList.Count > 0)
         {
             foreach (Troop troop in troopList)
             {
-                troop.SetDestination(transform);
+                if(troop != null)
+                {
+                    troop.SetDestination(transform);
+                } 
             }
-
-            troopList = null;
         }
+
+        troopList.Clear();
     }
 
     private void GameInput_OnInteractAlternateAction(object sender, System.EventArgs e)
@@ -76,7 +78,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         HandleInteraction();
-        //UpdateTroops();
     }
 
     void HandleInteraction()
@@ -90,17 +91,12 @@ public class Player : MonoBehaviour
             {
                 if (hitCollider.TryGetComponent(out IInteractable building))
                 {
-                    if (building != selectedBuilding)
+                    if(building != selectedBuilding)
                     {
                         SetSelectedBuilding(building);
                         break;
                     }
                 }
-                //else
-                //{
-                //    Debug.Log("null");
-                //    SetSelectedBuilding(null);
-                //}
             }
         }
 

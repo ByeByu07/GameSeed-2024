@@ -16,14 +16,11 @@ public class SelectedBuildingVisual : MonoBehaviour
     private void Player_OnSelectedBuildingChanged(object sender, Player.OnSelectedBuildingChangedEventHandler e)
     {
 
-        if (building.GetComponent<IInteractable>() == e.building) { 
-            if(building.IsActive())
-            {
-            Hide();
-            } else
-            {
+        if (building.GetComponent<IInteractable>() == e.building) {
             Show();
-            }
+        } else
+        {
+            Hide();
         }
     }
 

@@ -268,6 +268,37 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1612574503772871964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4048807428610922547}
+  m_Layer: 12
+  m_Name: TargetToSpawnCoins
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4048807428610922547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612574503772871964}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8338181908748635299}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2233369909934745854
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,6 +600,7 @@ Transform:
   - {fileID: 7541534287443468888}
   - {fileID: 2803586720986704184}
   - {fileID: 2117087072415537524}
+  - {fileID: 4048807428610922547}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3494340307230276104
@@ -598,6 +630,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c8cd1b17d57aec949ad29a0e4e09e06f, type: 2}
   - {fileID: 11400000, guid: 048fd148cd9b3fa4ea63f1c63c4311e8, type: 2}
   - {fileID: 11400000, guid: bcd56f6cacae3844dad3cd0d2200ea94, type: 2}
+  coins: {fileID: 3558610995967306479, guid: dc2c1dd77095e8b4298e39234342039b, type: 3}
+  targetToSpawnCoins: {fileID: 4048807428610922547}
 --- !u!114 &3086653881474746036
 MonoBehaviour:
   m_ObjectHideFlags: 0

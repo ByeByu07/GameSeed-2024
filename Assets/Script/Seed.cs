@@ -1,18 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Seed : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public event Action OnPlayerCollideGameStart;
+    [SerializeField] Transform tree;
+
+    private void Start()
     {
-        
+        tree.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.gameObject.GetComponent<Player>())
+        {
+            OnPlayerCollideGameStart?.Invoke();
+            tree.gameObject.SetActive(true);
+        }
     }
 }

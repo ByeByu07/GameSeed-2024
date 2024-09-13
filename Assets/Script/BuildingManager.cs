@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public class BuildingManager : MonoBehaviour
 {
     public static BuildingManager Instance {  get; private set; }
-    public List<Building> buildingList;
+    [SerializeField] private List<Building> buildingList;
 
     private void Awake()
     {
@@ -22,7 +23,7 @@ public class BuildingManager : MonoBehaviour
         buildingList.Remove(building);
     }
 
-    public List<Building> GetBuildingList()
+    public List<Building> GetBuildingActiveList()
     {
         return buildingList;
     }

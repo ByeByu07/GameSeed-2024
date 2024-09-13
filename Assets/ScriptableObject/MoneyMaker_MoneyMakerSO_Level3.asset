@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MoneyMaker_MoneyMakerSO_Level3
   m_EditorClassIdentifier: 
   level: 1
-  earn: 3
+  earn: 10
   health: 100

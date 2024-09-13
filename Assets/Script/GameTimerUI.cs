@@ -9,6 +9,6 @@ public class GameTimerUI : MonoBehaviour
 
     void Update()
     {
-        imageTimer.fillAmount = GameHandler.Instance.GetCurrentRestTimerNormalized();        
+        imageTimer.fillAmount = 1 - GameHandler.Instance.GetCurrentRestTimerNormalized();        
     }
 }
