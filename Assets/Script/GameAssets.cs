@@ -18,4 +18,9 @@ public class GameAssets : MonoBehaviour
     {
         Instance = this;
     }
+
+    public void ChangeSeedDestination(Transform t)
+    {
+        seed = t;
+    }
 }

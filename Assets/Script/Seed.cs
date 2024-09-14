@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Seed : MonoBehaviour
 {
-    public event Action OnPlayerCollideGameStart;
     [SerializeField] Transform tree;
 
     private void Start()
@@ -13,12 +12,15 @@ public class Seed : MonoBehaviour
         tree.gameObject.SetActive(false);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.GetComponent<Player>())
+        if (other.gameObject.GetComponent<Player>())
         {
-            OnPlayerCollideGameStart?.Invoke();
+            ModalTopUI.Instance.UpdateTextModal();
             tree.gameObject.SetActive(true);
+            Utility.CountDownWithCallback(this, 3f, () => ModalTopUI.Instance.UpdateTextModal());
+            GameHandler.Instance.ChangeState(GameHandler.GameState.WaitingCountDownTimer);
+            GameAssets.Instance.ChangeSeedDestination(transform);
         }
     }
 }

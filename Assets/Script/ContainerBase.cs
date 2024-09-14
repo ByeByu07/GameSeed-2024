@@ -51,4 +51,9 @@ public class ContainerBase : MonoBehaviour,IInteractable
     public void InteractAlternate()
     {
     }
+
+    public int GetInitialCost()
+    {
+        return level01.cost;
+    }
 }

@@ -58,6 +58,7 @@ public class Health : MonoBehaviour, IDamageable
     public virtual void HealthUnderZero()
     {
         gameObject.SetActive(false);
+        maxHealth = 100;
     }
 
     public virtual void OnHit()

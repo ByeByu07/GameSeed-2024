@@ -10,5 +10,7 @@ public class DefenseBuilding : Building
     public override void OnUpgradeComplete()
     {
         defenseBuildingSO = defenseBuildingSOList[CurrentLevel()];
+        buildingHealth.SetMaxHealth(defenseBuildingSO.health);
+        buildingHealth.ResetToMaxHealth();
     }
 }

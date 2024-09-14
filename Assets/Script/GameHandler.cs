@@ -1,8 +1,11 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
 {
@@ -25,6 +28,21 @@ public class GameHandler : MonoBehaviour
     private float gameTimerDivideDayAmountCurrent;
     [SerializeField] private float countDownToPlay = 20f;
 
+    // UI
+    [SerializeField] private Transform mainMenuCanvas;
+    [SerializeField] private Transform modalTopTutorial;
+    [SerializeField] private Button startButton;
+    [SerializeField] private Button resumeButton;
+    [SerializeField] private Button restartButton;
+    [SerializeField] private List<Button> quitButtons;
+    [SerializeField] private Transform camPlayer;
+
+    // Buildings
+    [SerializeField] private Transform buildingsToShow;
+
+    // Enemy
+    [SerializeField] private Transform firstEnemy;
+
     public event Action OnTimerEnd;
     public event Action OnGameOver;
     public event EventHandler<OnDayChangedEventHandler> OnDayChanged;
@@ -39,9 +57,47 @@ public class GameHandler : MonoBehaviour
     }
     void Start()
     {
-        State = GameState.WaitingCountDownTimer;
+        State = GameState.WaitingPlayer;
         gameTimerDivideDayAmount = gameTimerMax / dayAmount;
         gameTimerDivideDayAmountCurrent = gameTimerDivideDayAmount;
+
+        startButton.onClick.AddListener(() =>
+        { 
+            ChangeCamera();
+            mainMenuCanvas.gameObject.SetActive(false);
+            firstEnemy.gameObject.SetActive(true);
+            Utility.CountDownWithCallback(this, 3f, () => modalTopTutorial.gameObject.SetActive(true));
+            Utility.CountDownWithCallback(this, 10f, () => modalTopTutorial.GetComponent<ModalTopUI>().UpdateTextModal());
+        });
+
+        foreach (Button b in quitButtons)
+        {
+            b.onClick.AddListener(() =>
+            {
+                Application.Quit();
+            });
+        }
+
+        restartButton.onClick.AddListener(() => { SceneManager.LoadScene(0); });
+        resumeButton.onClick.AddListener(() => {
+            mainMenuCanvas.gameObject.SetActive(false);
+            Time.timeScale = 1;
+        });
+
+        GameInput.Instance.OnPauseAction += Instance_OnPauseAction;
+    }
+
+    private void Instance_OnPauseAction(object sender, EventArgs e)
+    {
+        if(Time.timeScale == 0)
+        {
+            mainMenuCanvas.gameObject.SetActive(false);
+            Time.timeScale = 1;
+        } else
+        {
+            mainMenuCanvas.gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 
     private void Update()
@@ -56,6 +112,7 @@ public class GameHandler : MonoBehaviour
                 {
                     State = GameState.DefensePeriod;
                 }
+                buildingsToShow.gameObject.SetActive(true);
                 break;
             case GameState.DefensePeriod:
 
@@ -90,5 +147,16 @@ public class GameHandler : MonoBehaviour
     public void ChangeSeed(Transform t)
     {
         GameAssets.Instance.seed = t;
+    }
+
+    private void ChangeCamera()
+    {
+        if (camPlayer.gameObject.activeInHierarchy)
+        {
+            camPlayer.gameObject.SetActive(false);
+        } else
+        {
+            camPlayer.gameObject.SetActive(true);
+        }
     }
 }

@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d20a79b32a9f86c4e80600d1fc6b8861, type: 3}
-  m_Name: DefenseBuilding_CostBuildingSO_Level1
+  m_Script: {fileID: 11500000, guid: 962e0f244379f534dac5c0e3dad8f92e, type: 3}
+  m_Name: ModalTopUISO_1
   m_EditorClassIdentifier: 
-  level: 1
-  cost: 5
-  countToBuild: 5
+  text: 'Find a place to seeding '

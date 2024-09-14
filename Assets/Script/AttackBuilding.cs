@@ -24,12 +24,6 @@ public class AttackBuilding : Building
     {
         attackBuildingSO = attackBuildingSOList[CurrentLevel()];
         timerToSpawnAgain = attackBuildingSO.timeToSpawnAgain;
-        //for (int i = 0; i < attackBuildingSO.numberOfPeople; i++)
-        //{
-        //    Troop troop = Instantiate(troopToSpawn, transform.position, Quaternion.identity);
-        //    troop.gameObject.SetActive(false);
-        //    peopleSpawned.Add(troop);
-        //}
     }
 
     public override void OnUpgradeComplete()
@@ -43,22 +37,10 @@ public class AttackBuilding : Building
         timerToSpawnAgain -= Time.deltaTime;
         if(timerToSpawnAgain < 0)
         {
-            //foreach (Troop t in peopleSpawned)
-            //{
-            //    if (!t.gameObject.activeInHierarchy)
-            //    {
-            //t.gameObject.SetActive(true);
-            //t.transform.position = positionToSpawn.position;
-            //Debug.Log("spawn" + t.transform.position);
-            //break;
-            //    }
-            //}
             if (peopleSpawned.Count < attackBuildingSO.numberOfPeople)
             {
-                Troop troop = Instantiate(troopToSpawn, transform.position, Quaternion.identity);
-                troop.transform.position = positionToSpawn.position;
+                Troop troop = Instantiate(troopToSpawn, positionToSpawn.position + new Vector3(Random.Range(4, -4), 0, Random.Range(4, -4)), Quaternion.identity);
                 peopleSpawned.Add(troop);
-
             }
 
             timerToSpawnAgain = attackBuildingSO.timeToSpawnAgain;

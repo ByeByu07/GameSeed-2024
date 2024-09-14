@@ -8,7 +8,10 @@ using UnityEngine;
 [RequireComponent(typeof(BuildingHealth))]
 public class Building : MonoBehaviour, IInteractable
 {
-    public event Action OnSuccessUpgradeLevel;
+    public event EventHandler<OnSuccessUpgradeLevelEventHandler> OnSuccessUpgradeLevel;
+
+    public class OnSuccessUpgradeLevelEventHandler : EventArgs { public int cost; }
+
     public event Action OnCancelUpgradeLevel;
 
     public event EventHandler<OnTapUpgradeEventHandler> OnTapUpgrade;
@@ -42,8 +45,8 @@ public class Building : MonoBehaviour, IInteractable
                 if(!IsLevelMax())
                 {
                     currentLevel++;
-                    OnSuccessUpgradeLevel?.Invoke();
                     OnUpgradeComplete();
+                    OnSuccessUpgradeLevel?.Invoke(this, new OnSuccessUpgradeLevelEventHandler { cost = costEachLevelBuildingSOList[CurrentLevel()].cost });
                     UpdateVisual();
                 }
             }
@@ -83,4 +86,9 @@ public class Building : MonoBehaviour, IInteractable
     public bool IsLevelMax() {  return currentLevel == maxLevel; }
     public bool IsActive() { return currentLevel != 0; }
     public int CurrentLevel() { return currentLevel - 1 ; }
+
+    public int GetCurrentCost()
+    {
+        return costEachLevelBuildingSOList[CurrentLevel()].cost;
+    }
 }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59a9b7fb70f50f44c81c9b8b448f0134, type: 3}
-  m_Name: DefenseBuilding_DefenseBuildingSO_Level1
+  m_Name: Wall_DefenseBuildingSO_Level3
   m_EditorClassIdentifier: 
-  level: 0
-  health: 0
+  level: 3
+  health: 500

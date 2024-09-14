@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Seed2 : MonoBehaviour
 {
-    public event Action OnPlayerCollideGameStart;
     [SerializeField] Transform tree;
 
     private void Start()
@@ -13,12 +12,14 @@ public class Seed2 : MonoBehaviour
         tree.gameObject.SetActive(true);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.GetComponent<Player>())
+        Debug.Log("trigger" + other.name);
+        if (other.gameObject.tag == "Player")
         {
-            OnPlayerCollideGameStart?.Invoke();
+            Debug.Log("trigger Plyaer");
             tree.gameObject.SetActive(false);
+            GameAssets.Instance.ChangeSeedDestination(GameAssets.Instance.player);
         }
     }
 }
